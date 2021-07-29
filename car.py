@@ -77,4 +77,5 @@ class Car:
     def Draw(self, screen):
         rotated = pygame.transform.rotate(self.sprite, self.angle)
         rect = rotated.get_rect()
-        screen.blit(rotated, self.position * self.t - (rect.width / 2, rect.height / 2))
+        self.x, self.y = self.position * self.t - (rect.width / 2, rect.height / 2)
+        screen.blit(rotated, (self.x, self.y))
