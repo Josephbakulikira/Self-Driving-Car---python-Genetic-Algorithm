@@ -1,5 +1,5 @@
-Width = 1800
-Height = 900
+Width = 1920
+Height = 1080
 
 Black = (0, 0, 0)
 White = (255, 255, 255)
@@ -15,9 +15,19 @@ MAX_STEERING = 30
 MAX_VELOCITY = 20
 MAX_ACCELERATION = 5.0
 
+CAR_SCALE = (64, 32)
+
+# when you load a data file ,
+# check if these 3 value are the same with the saved data
+# eg1: track1 -> N_POINTS=25, SPLINE_RESOLUTION=10
+# eg2: track2 -> N_POINTS=25, SPLINE_RESOLUTION=10
+# eg3: track3 -> N_POINTS=10, SPLINE_RESOLUTION=15
+# eg4: track4 -> N_POINTS=10, SPLINE_RESOLUTION=5
+
 TRACK_WIDTH = 70
 SPLINE_RESOLUTION = 5
-N_POINTS = 25
+N_POINTS = 10
+
 # CORRELATION BETWEEN THE SPLINE RESOLUTION AND THE
 # NUMBER OF POINTS
 CORRELATION = N_POINTS/SPLINE_RESOLUTION
@@ -40,5 +50,9 @@ Themes = [
     { # --- Default--3
         "track": (100, 100, 100),
         "background": Grass
+    },
+    { # --- Night Drive -- 4
+        "track": (102,51,68),
+        "background": (17,17,34)
     }
 ]
