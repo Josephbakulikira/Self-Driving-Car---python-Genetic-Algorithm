@@ -102,18 +102,19 @@ class Spline:
             index += 1
         return (index + (p / self.points[index].length))
 
-    def Draw(self, screen, clicked):
+    def Draw(self, screen, clicked, editor=False):
         keys = pygame.key.get_pressed()
         # self.length = 0
         for i in range(self.resolution * len(self.points)):
             x, y = self.GetSplinePoints(i, True)
             pygame.draw.rect(screen, self.lineColor, [int(x), int(y), self.lineWidth, self.lineWidth])
 
-        for i in range(len(self.points)):
-            self.points[i].length = self.CalculateSegmentLength(i , True)
-            self.length += self.points[i].length
-            self.points[i].update(clicked)
-            self.points[i].Draw(screen)
-            #print(self.points[i].length)
+        if editor:
+            for i in range(len(self.points)):
+                self.points[i].length = self.CalculateSegmentLength(i , True)
+                self.length += self.points[i].length
+                self.points[i].update(clicked)
+                self.points[i].Draw(screen)
+                #print(self.points[i].length)
 
-        # print(self.length)
+            # print(self.length)

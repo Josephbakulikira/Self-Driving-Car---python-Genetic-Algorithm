@@ -16,6 +16,13 @@ screen = pygame.display.set_mode((Width, Height))
 clock = pygame.time.Clock()
 fps = 60
 
+# load Assets
+track_filename = "./map/track1"
+current_directory = os.path.dirname(os.path.abspath(__file__))
+carImage_path = os.path.join(current_directory, "./Assets/car.png")
+car_sprite = pygame.image.load(carImage_path)
+sprite = pygame.transform.scale(car_sprite, (128, 64))
+
 track = Spline()
 trackTopBound = Spline()
 trackBottomBound = Spline()
@@ -30,21 +37,25 @@ track.resolution = SPLINE_RESOLUTION
 trackBottomBound.resolution = SPLINE_RESOLUTION
 trackTopBound.resolution = SPLINE_RESOLUTION
 
+# or
+# load the saved spline
+# curve = pickle.load(open(filename, 'rb'))
 
-
-# load Assets
-current_directory = os.path.dirname(os.path.abspath(__file__))
-carImage_path = os.path.join(current_directory, "./Assets/car.png")
-car_sprite = pygame.image.load(carImage_path)
-sprite = pygame.transform.scale(car_sprite, (128, 64))
 
 car = Car(30, 15)
 car.sprite = sprite
 
+debug=False
+editorMode = False
+edit=False
+
+changed = True
+
 MouseClicked = False
+ThemeIndex = 3
 run = True
 while run:
-    screen.fill(Black)
+    screen.fill(Themes[ThemeIndex]["background"])
     dt = clock.get_time()/1000
 
     framerate = clock.get_fps()
@@ -81,21 +92,26 @@ while run:
     car.constrainSteering()
 
 
-    for i in range(N_POINTS ):
-        p1 = track.GetSplinePoints(i * SPLINE_RESOLUTION, True)
-        g1 = track.GetSplineGradient(i * SPLINE_RESOLUTION, True)
-        glength = sqrt(g1[0] * g1[0] + g1[1] * g1[1])
+    if changed == True:
+        for i in range(N_POINTS ):
+            p1 = track.GetSplinePoints(i * SPLINE_RESOLUTION, True)
+            g1 = track.GetSplineGradient(i * SPLINE_RESOLUTION, True)
+            glength = sqrt(g1[0] * g1[0] + g1[1] * g1[1])
 
-        trackTopBound.points[i].x = p1[0] - TRACK_WIDTH * (-g1[1]/glength)
-        trackTopBound.points[i].y = p1[1] - TRACK_WIDTH * (g1[0]/glength)
+            trackTopBound.points[i].x = p1[0] - TRACK_WIDTH * (-g1[1]/glength)
+            trackTopBound.points[i].y = p1[1] - TRACK_WIDTH * (g1[0]/glength)
 
-        trackBottomBound.points[i].x = p1[0] + TRACK_WIDTH * (-g1[1]/glength)
-        trackBottomBound.points[i].y = p1[1] + TRACK_WIDTH * (g1[0]/glength)
+            trackBottomBound.points[i].x = p1[0] + TRACK_WIDTH * (-g1[1]/glength)
+            trackBottomBound.points[i].y = p1[1] + TRACK_WIDTH * (g1[0]/glength)
 
-    #trackBottomBound.Draw(screen, False)
-    #trackTopBound.Draw(screen, False)
-    DrawTrackTriangles(screen ,trackTopBound, trackBottomBound, 1, False)
-    track.Draw(screen, MouseClicked)
+
+    DrawTrackTriangles(screen ,trackTopBound, trackBottomBound, ThemeIndex, wireframe=False)
+    if debug:
+        trackBottomBound.Draw(screen, False)
+        trackTopBound.Draw(screen, False)
+
+    if editorMode:
+        track.Draw(screen, MouseClicked, edit)
 
 
     car.update(dt)
@@ -105,4 +121,11 @@ while run:
     clock.tick(fps)
 
     MouseClicked = False
+    if editorMode:
+        changed = True
+    else:
+        changed = False
+
+#save our edited curve spline class
+pickle.dump(track, open(track_filename, 'wb'))
 pygame.quit()
