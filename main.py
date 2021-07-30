@@ -7,10 +7,11 @@ from spline import Spline
 from math import sin, radians, degrees, copysign, sqrt
 from pygame.math import Vector2
 from car import Car
+from utils import DrawTrackTriangles
 from constants import *
 
 pygame.init()
-pygame.display.set_caption(" Self Driving Car")
+# pygame.display.set_caption(" Self Driving Car")
 screen = pygame.display.set_mode((Width, Height))
 clock = pygame.time.Clock()
 fps = 60
@@ -45,6 +46,9 @@ run = True
 while run:
     screen.fill(Black)
     dt = clock.get_time()/1000
+
+    framerate = clock.get_fps()
+    pygame.display.set_caption("Self Driving Car AI - FrameRate(fps) : {}".format(framerate))
 
     # HANDLE EVENT
     for event in pygame.event.get():
@@ -88,9 +92,11 @@ while run:
         trackBottomBound.points[i].x = p1[0] + TRACK_WIDTH * (-g1[1]/glength)
         trackBottomBound.points[i].y = p1[1] + TRACK_WIDTH * (g1[0]/glength)
 
+    #trackBottomBound.Draw(screen, False)
+    #trackTopBound.Draw(screen, False)
+    DrawTrackTriangles(screen ,trackTopBound, trackBottomBound, 1, False)
     track.Draw(screen, MouseClicked)
-    trackBottomBound.Draw(screen, False)
-    trackTopBound.Draw(screen, False)
+
 
     car.update(dt)
     car.Draw(screen)

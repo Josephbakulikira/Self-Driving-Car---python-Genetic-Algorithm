@@ -1,7 +1,7 @@
 import pygame
 from point import Point, GetDistance
 from random import randint
-from constants import Width, Height, Black, White
+from constants import Width, Height, Black, White, INITIAL_POINT_RADIUS_SPLINE
 from math import sqrt, pow, sin, cos, pi
 
 class Spline:
@@ -16,8 +16,8 @@ class Spline:
 
     def CreatePoints(self, n, showLabel=False):
         for i in range(n):
-            x = 500 * sin( i/n * pi * 2) + Width//2
-            y = 500 * cos( i/n * pi * 2) + Height//2
+            x = INITIAL_POINT_RADIUS_SPLINE * sin( i/n * pi * 2) + Width//2
+            y = INITIAL_POINT_RADIUS_SPLINE * cos( i/n * pi * 2) + Height//2
             point = Point(x, y, self.pointRadius)
             if showLabel:
                 point.label = "P" + str(i)
