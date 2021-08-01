@@ -12,10 +12,10 @@ Gray = (100, 100, 100)
 Cyan = (0, 255, 255)
 
 MAX_STEERING = 30
-MAX_VELOCITY = 20
+MAX_VELOCITY = 15
 MAX_ACCELERATION = 5.0
 
-CAR_SCALE = (64, 32)
+CAR_SIZE = (80, 40)
 
 # when you load a data file ,
 # check if these 3 value are the same with the saved data

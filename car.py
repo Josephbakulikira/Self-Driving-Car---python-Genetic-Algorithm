@@ -1,5 +1,5 @@
 import pygame
-from math import degrees, sin, radians, copysign
+from math import degrees, sin, radians, copysign, atan2, cos, sin
 from pygame.math import Vector2
 from constants import *
 from utils import clamp
@@ -19,6 +19,15 @@ class Car:
         self.acceleration = 0.0
         self.steering = 0.0
         self.sprite = None
+        self.x = 0
+        self.y = 0
+        self.origin = (0, 0)
+        self.rectangle = None
+    def GetRectangleLines(self, screen, debug=True):
+        _x = self.rectangle[0] * self.t  - (self.rectangle[2]/2)
+        _y = self.rectangle[1] * self.t  - (self.rectangle[3]/2)
+
+        pygame.draw.rect(screen, Red, self.rectangle, 4)
 
     def update(self, dt):
         self.velocity += (self.acceleration * dt, 0)
@@ -78,4 +87,11 @@ class Car:
         rotated = pygame.transform.rotate(self.sprite, self.angle)
         rect = rotated.get_rect()
         self.x, self.y = self.position * self.t - (rect.width / 2, rect.height / 2)
+        self.rectangle = rotated.get_bounding_rect()
+        # pygame.draw.rect(screen, Red, rotated.get_bou)
+        collide = rect.collidepoint(pygame.mouse.get_pos())
+
         screen.blit(rotated, (self.x, self.y))
+        if collide:
+            pygame.draw.circle(screen, White, (self.x, self.y), 5)
+        # pygame.draw.circle(screen, White, (self.x, self.y), 5)

@@ -23,7 +23,7 @@ track_filename = "./map/new_track"
 current_directory = os.path.dirname(os.path.abspath(__file__))
 carImage_path = os.path.join(current_directory, "./Assets/car2.png")
 car_sprite = pygame.image.load(carImage_path)
-sprite = pygame.transform.scale(car_sprite, CAR_SCALE)
+sprite = pygame.transform.scale(car_sprite, CAR_SIZE)
 
 #  ---- Initiate New splines and lines ---
 
@@ -70,7 +70,7 @@ saveChange = False
 MouseClicked = False
 ThemeIndex = 3
 
-print(len(TrackLines))
+
 showPanel = False
 
 run = True
@@ -160,6 +160,8 @@ while run:
     if showPanel == True:
         panel.Render(screen)
 
+    car.GetRectangleLines(screen)
+
     pygame.display.flip()
     clock.tick(fps)
 
@@ -168,7 +170,6 @@ while run:
         changed = True
     else:
         changed = False
-
 # save our edited track and the lines of the track
 if saveChange == True:
     data = {
