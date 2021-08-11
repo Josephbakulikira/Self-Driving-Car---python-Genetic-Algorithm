@@ -3,12 +3,12 @@ from constants import Width, Height, Green, Black, White
 from math import sqrt
 
 class Point:
-    def __init__(self, x=Width//2, y=Height//2, radius=5, color=White):
+    def __init__(self, x=Width//2, y=Height//2, radius=5, color=(40, 240, 235)):
         self.x = x
         self.y = y
         self.color = color
         self.temp = color
-        self.selectColor = (255, 0, 0)
+        self.selectColor = (225, 40, 245)
         self.radius = radius
         self.selected = False
         self.label = None

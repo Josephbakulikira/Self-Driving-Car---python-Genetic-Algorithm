@@ -56,6 +56,9 @@ trackTopBound = loadData['TOP_TRACK']
 trackBottomBound = loadData['BOTTOM_TRACK']
 TrackLines = loadData['LINES']
 
+
+# ---------
+
 car = Car(30, 15)
 car.sprite = sprite
 
@@ -65,11 +68,13 @@ edit=False
 wireframe=False
 wireframeLine=False
 updateLines = False
+
+# set changed=True if you want to edit a track or create a new one
 changed = False
+
 saveChange = False
 MouseClicked = False
 ThemeIndex = 3
-
 
 showPanel = False
 
