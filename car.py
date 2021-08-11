@@ -23,11 +23,7 @@ class Car:
         self.y = 0
         self.origin = (0, 0)
         self.rectangle = None
-    def GetRectangleLines(self, screen, debug=True):
-        _x = self.rectangle[0] * self.t  - (self.rectangle[2]/2)
-        _y = self.rectangle[1] * self.t  - (self.rectangle[3]/2)
 
-        pygame.draw.rect(screen, Red, self.rectangle, 4)
 
     def update(self, dt):
         self.velocity += (self.acceleration * dt, 0)

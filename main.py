@@ -160,8 +160,6 @@ while run:
     if showPanel == True:
         panel.Render(screen)
 
-    car.GetRectangleLines(screen)
-
     pygame.display.flip()
     clock.tick(fps)
 
