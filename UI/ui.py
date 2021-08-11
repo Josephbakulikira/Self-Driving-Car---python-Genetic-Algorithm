@@ -5,7 +5,7 @@ def translate(value, min1, max1, min2, max2):
     return min2 + (max2-min2)*((value-min1)/(max1-min1))
 
 class Button:
-    def __init__(self, text, position = (Width-230, 600) , w = 100, h= 50, border=10, color = (0, 0, 0), borderColor = (64, 123, 158)):
+    def __init__(self, text, position = (Width-230, 400) , w = 100, h= 50, border=10, color = (0, 0, 0), borderColor = (64, 123, 158)):
         self.text = text
         self.position = position
         self.w = w
@@ -20,7 +20,7 @@ class Button:
         self.state = False
         self.action = None
 
-    def HandleMouse(self, HoverColor = (100, 100, 100)):
+    def HandleMouse(self, HoverColor = (50, 120, 140)):
         m = pygame.mouse.get_pos()
         self.state = False
         if m[0] >= self.position[0] and m[0] <= self.position[0] + self.w:
@@ -49,7 +49,7 @@ class Button:
         screen.blit(text, textRect)
 
 class Panel:
-    def __init__(self, position = (Width-350, 100), w= 345, h= 500, color=(8, 3, 12), alpha=128):
+    def __init__(self, position = (Width-360, 90), w= 345, h= 500, color=(8, 3, 12), alpha=128):
         self.position = position
         self.w = w
         self.h = h
@@ -64,7 +64,7 @@ class Panel:
         #pygame.draw.rect(screen, self.color, pygame.Rect(self.position[0], self.position[1], self.w, self.h))
 
 class ToggleButton:
-    def __init__(self, position= ((Width-200, 400)), w = 30, h=30, state=False, color=(40, 40, 10), activeColor=(240, 140, 60)):
+    def __init__(self, position= ((Width-200, 400)), w = 30, h=30, state=False, color=(20, 40, 50), activeColor=(40, 140, 200)):
         self.position = position
         self.w = w
         self.h = h
@@ -74,7 +74,7 @@ class ToggleButton:
         self.activeColor = activeColor
         self.color = color
 
-    def HandleMouse(self, HoverColor = (150, 120, 40)):
+    def HandleMouse(self, HoverColor = (50, 120, 140)):
         m = pygame.mouse.get_pos()
 
         if m[0] >= self.position[0] and m[0] <= self.position[0] + self.w:
@@ -190,7 +190,7 @@ class Slider:
         self.rectradius = 10
         self.temp_radius = self.rectradius
         self.rectColor = (255, 255, 255)
-        self.v = 0.4
+        self.v = 0.2
         self.temp = self.lineColor
         self.max = max
 

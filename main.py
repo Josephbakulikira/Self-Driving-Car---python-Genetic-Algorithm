@@ -19,7 +19,7 @@ clock = pygame.time.Clock()
 fps = 60
 
 # load Assets
-track_filename = "./map/new_track"
+track_filename = "./map/new_track3"
 current_directory = os.path.dirname(os.path.abspath(__file__))
 carImage_path = os.path.join(current_directory, "./Assets/car2.png")
 car_sprite = pygame.image.load(carImage_path)
@@ -81,6 +81,9 @@ while run:
     framerate = clock.get_fps()
     pygame.display.set_caption("Self Driving Car AI - FrameRate(fps) : {}".format(framerate))
 
+    if edit == True:
+        changed = True
+
     # HANDLE EVENT
     # q -> Switch themes , Esc -> to close window
     for event in pygame.event.get():
@@ -104,8 +107,10 @@ while run:
 
     if keys[pygame.K_UP] or keys[pygame.K_w]:
         car.Forward(dt)
+
     elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
         car.Backward(dt)
+
     elif keys[pygame.K_SPACE]:
         car.Brake(dt)
     else:
@@ -158,8 +163,28 @@ while run:
 
     # Render UI
     if showPanel == True:
-        panel.Render(screen)
 
+        # might need to change the way i render ui for optimisation
+        panel.Render(screen)
+        quitSave.Render(screen)
+        editorModeText.Render(screen)
+        editText.Render(screen)
+        wireframeModeText.Render(screen)
+        showLineText.Render(screen)
+
+        editorMode = editorModeToggle.Render(screen, MouseClicked)
+        edit = editToggle.Render(screen, MouseClicked)
+        wireframe = wireframeToggle.Render(screen, MouseClicked)
+        debug = ShowlineToggle .Render(screen, MouseClicked)
+        wireframeLine = debug
+
+        if edit == True:
+            TrackWidthText.Render(screen)
+            TRACK_WIDTH = WidthSlider.Render(screen)
+
+    if quitSave.state == True:
+        saveChange = True
+        run = False
     pygame.display.flip()
     clock.tick(fps)
 
