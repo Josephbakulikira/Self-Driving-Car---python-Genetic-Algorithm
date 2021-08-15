@@ -166,7 +166,9 @@ while run:
     car.update(dt)
     car.Draw(screen, debug)
     if len(TrackLines) > 0:
-        car.CheckCollision(TrackLines)
+        collide = car.CheckCollision(TrackLines)
+        if collide:
+            pygame.draw.circle(screen, Red, (Width//2, Height//2), 50)
     # Render UI
     if showPanel == True:
 

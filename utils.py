@@ -51,3 +51,24 @@ def GetPerpendicular(A, B, length):
     D = Vector2( B.x - dx, B.y - dy )
 
     return [tuple(C), tuple(D)]
+
+def LineLineIntersection(x1, y1, x2, y2, x3, y3, x4, y4):
+    denominator = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4)
+    if denominator == 0:
+        # if the denominator is 0 , that means the two lines are almost parallel
+        return None
+    numeratorT = (x1-x3)*(y3-y4) - (y1-y3)*(x3-x4)
+    numeratorU = (x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)
+
+    t = numeratorT/denominator
+    u = numeratorU/denominator
+
+    x = x1 + t*(x2-x1)
+    y = y1 + t*(y2-y1)
+    # or
+    #x = x3+u*(x4-x3)
+    #y = y3+u*(y4-y3)
+
+    if t < 0 or t > 1 or u < 0 or u > 1:
+        return None
+    return (x, y)

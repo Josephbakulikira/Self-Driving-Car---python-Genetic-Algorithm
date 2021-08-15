@@ -2,7 +2,7 @@ import pygame
 from math import degrees, sin, radians, copysign, atan2, cos, sin
 from pygame.math import Vector2
 from constants import *
-from utils import clamp, GetPerpendicular
+from utils import clamp, GetPerpendicular, LineLineIntersection, GetDistance
 
 class Car:
     def __init__(self, x, y, angle=0.0, length=4, max_steering=MAX_STEERING, max_acceleration=MAX_ACCELERATION):
@@ -110,7 +110,16 @@ class Car:
             pygame.draw.line(screen, Cyan, TopLine[0], TopLine[1], 2)
 
     def CheckCollision(self, raceLines):
-        return
+
+        for line in self.lines:
+            for l in raceLines:
+                intersection = LineLineIntersection(
+                    line[0][0], line[0][1],
+                    line[1][0], line[1][1],
+                    l['a'][0], l['a'][1],
+                    l['b'][0], l['b'][1])
+                if intersection != None:
+                    return True
 
     def Draw(self, screen, debug=False):
         rotated = pygame.transform.rotate(self.sprite, self.angle)
