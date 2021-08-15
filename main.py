@@ -82,9 +82,9 @@ run = True
 while run:
     screen.fill(Themes[ThemeIndex]["background"])
     dt = clock.get_time()/1000
-
+    clock.tick(fps)
     framerate = clock.get_fps()
-    pygame.display.set_caption("Self Driving Car AI - FrameRate(fps) : {}".format(framerate))
+    pygame.display.set_caption("Self Driving Car AI - FrameRate(fps) : {}".format(int(framerate)))
 
     if edit == True:
         changed = True
@@ -164,8 +164,9 @@ while run:
 
 
     car.update(dt)
-    car.Draw(screen)
-
+    car.Draw(screen, debug)
+    if len(TrackLines) > 0:
+        car.CheckCollision(TrackLines)
     # Render UI
     if showPanel == True:
 

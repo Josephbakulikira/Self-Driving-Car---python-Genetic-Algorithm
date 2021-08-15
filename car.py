@@ -2,7 +2,7 @@ import pygame
 from math import degrees, sin, radians, copysign, atan2, cos, sin
 from pygame.math import Vector2
 from constants import *
-from utils import clamp
+from utils import clamp, GetPerpendicular
 
 class Car:
     def __init__(self, x, y, angle=0.0, length=4, max_steering=MAX_STEERING, max_acceleration=MAX_ACCELERATION):
@@ -23,7 +23,7 @@ class Car:
         self.y = 0
         self.origin = (0, 0)
         self.rectangle = None
-
+        self.lines = None
 
     def update(self, dt):
         self.velocity += (self.acceleration * dt, 0)
@@ -79,15 +79,47 @@ class Car:
     def resetSteering(self):
         self.steering = 0
 
-    def Draw(self, screen):
+    def SetRectangle(self, screen ,w, h, debug):
+        px = self.x + w/2
+        py = self.y + h/2
+
+        t0 = cos(radians(self.angle))
+        t1 = -sin(radians(self.angle))
+
+        x = t0 * ((w/2)-4) + px
+        y = t1 * ((h/2)-4) + py
+
+        x1 = t0 * ((-w/2)+7) + px
+        y1 = t1 * ((-h/2)+7) + py
+
+        LeftLine = GetPerpendicular(Vector2(x,y), Vector2(x1, y1), CAR_SIZE[1]/2)
+        RightLine = GetPerpendicular(Vector2(x1, y1), Vector2(x, y), CAR_SIZE[1]/2)
+        BottomLine = [LeftLine[0], RightLine[0]]
+        TopLine = [LeftLine[1], RightLine[1]]
+
+        self.lines = [
+        LeftLine,
+        RightLine,
+        BottomLine,
+        TopLine
+        ]
+        if debug == True:
+            pygame.draw.line(screen, Cyan, LeftLine[0], LeftLine[1], 2)
+            pygame.draw.line(screen, Cyan, RightLine[0], RightLine[1], 2)
+            pygame.draw.line(screen, Cyan, BottomLine[0], BottomLine[1], 2)
+            pygame.draw.line(screen, Cyan, TopLine[0], TopLine[1], 2)
+
+    def CheckCollision(self, raceLines):
+        return
+
+    def Draw(self, screen, debug=False):
         rotated = pygame.transform.rotate(self.sprite, self.angle)
         rect = rotated.get_rect()
         self.x, self.y = self.position * self.t - (rect.width / 2, rect.height / 2)
         self.rectangle = rotated.get_bounding_rect()
-        # pygame.draw.rect(screen, Red, rotated.get_bou)
         collide = rect.collidepoint(pygame.mouse.get_pos())
-
+        # print(dir(rotated))
         screen.blit(rotated, (self.x, self.y))
         if collide:
             pygame.draw.circle(screen, White, (self.x, self.y), 5)
-        # pygame.draw.circle(screen, White, (self.x, self.y), 5)
+        self.SetRectangle(screen, rotated.get_width(), rotated.get_height(), debug)

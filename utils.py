@@ -1,5 +1,7 @@
 import pygame
 from constants import *
+from math import sqrt
+from pygame.math import Vector2
 
 def clamp(num, min_value, max_value):
    return max(min(num, max_value), min_value)
@@ -36,3 +38,16 @@ def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=N
                 Lines.append(Line(b, b2))
 
     updateLines=False
+
+def GetDistance(a, b):
+    return sqrt( (b.x-a.x)*(b.x-a.x) + (b.y-a.y)*(b.y-a.y))
+
+def GetPerpendicular(A, B, length):
+    _rise, _run = (B.y - A.y), (B.x - A.x)
+    slope = _rise/_run
+    dy = sqrt(length**2 / (slope**2+1))
+    dx = -slope * dy
+    C = Vector2( B.x + dx, B.y + dy )
+    D = Vector2( B.x - dx, B.y - dy )
+
+    return [tuple(C), tuple(D)]
