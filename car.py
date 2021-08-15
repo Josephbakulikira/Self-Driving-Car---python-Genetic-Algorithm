@@ -8,11 +8,13 @@ class Car:
     def __init__(self, x, y, angle=0.0, length=4, max_steering=MAX_STEERING, max_acceleration=MAX_ACCELERATION):
         self.position = Vector2(x, y)
         self.velocity = Vector2(0.0, 0.0)
+        self.center = None
         self.angle = angle
         self.length = length
         self.max_acceleration = max_acceleration
         self.max_steering = max_steering
         self.max_velocity = MAX_VELOCITY
+        self.max_distance = 100
         self.brake_deceleration = 10
         self.free_deceleration = 2
         self.t = 32
@@ -23,8 +25,10 @@ class Car:
         self.y = 0
         self.origin = (0, 0)
         self.rectangle = None
-        self.lines = None
-
+        self.lines = []
+        self.sensors = []
+        self.crashed = False
+        self.intersections = []
     def update(self, dt):
         self.velocity += (self.acceleration * dt, 0)
         # max(-self.max_velocity, min(self.velocity.x, self.max_velocity))
@@ -79,10 +83,35 @@ class Car:
     def resetSteering(self):
         self.steering = 0
 
+    def updateSensors(self, screen, debug=False):
+        self.sensors = []
+        for i in range(0, 180 + 180//4, 180//4):
+            x = sin(radians(self.angle + i)) * self.max_distance + self.center.x
+            y = cos(radians(self.angle + i)) * self.max_distance + self.center.y
+            self.sensors.append(Vector2(x,y))
+        if debug==True:
+            pygame.draw.circle(screen, (240, 150 ,23), self.center, 5)
+            for p in self.sensors:
+                pygame.draw.line(screen, (i, i+70, 255), self.center, p, 2)
+
+    def checkSensorIntersection(self, raceTrackLines):
+        self.intersections.clear()
+        for sensor in self.sensors:
+            for l in raceTrackLines:
+                intersection = LineLineIntersection(
+                self.center.x, self.center.y,
+                sensor.x, sensor.y,
+                l['a'][0], l['a'][1],
+                l['b'][0], l['b'][1]
+                )
+                if intersection != None:
+                    self.intersections.append(intersection)
+
+
     def SetRectangle(self, screen ,w, h, debug):
         px = self.x + w/2
         py = self.y + h/2
-
+        self.center = Vector2(px, py)
         t0 = cos(radians(self.angle))
         t1 = -sin(radians(self.angle))
 
@@ -109,8 +138,7 @@ class Car:
             pygame.draw.line(screen, Cyan, BottomLine[0], BottomLine[1], 2)
             pygame.draw.line(screen, Cyan, TopLine[0], TopLine[1], 2)
 
-    def CheckCollision(self, raceLines):
-
+    def CheckDeath(self, raceLines):
         for line in self.lines:
             for l in raceLines:
                 intersection = LineLineIntersection(
@@ -120,6 +148,9 @@ class Car:
                     l['b'][0], l['b'][1])
                 if intersection != None:
                     return True
+
+        return False
+
 
     def Draw(self, screen, debug=False):
         rotated = pygame.transform.rotate(self.sprite, self.angle)
@@ -132,3 +163,4 @@ class Car:
         if collide:
             pygame.draw.circle(screen, White, (self.x, self.y), 5)
         self.SetRectangle(screen, rotated.get_width(), rotated.get_height(), debug)
+        self.updateSensors(screen, debug)

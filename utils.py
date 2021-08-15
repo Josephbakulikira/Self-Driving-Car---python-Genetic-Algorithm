@@ -42,6 +42,9 @@ def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=N
 def GetDistance(a, b):
     return sqrt( (b.x-a.x)*(b.x-a.x) + (b.y-a.y)*(b.y-a.y))
 
+def Magnitude(a):
+    return sqrt(a.x * a.x + b.y * b.y)
+
 def GetPerpendicular(A, B, length):
     _rise, _run = (B.y - A.y), (B.x - A.x)
     slope = _rise/_run
@@ -63,12 +66,11 @@ def LineLineIntersection(x1, y1, x2, y2, x3, y3, x4, y4):
     t = numeratorT/denominator
     u = numeratorU/denominator
 
-    x = x1 + t*(x2-x1)
-    y = y1 + t*(y2-y1)
-    # or
-    #x = x3+u*(x4-x3)
-    #y = y3+u*(y4-y3)
-
-    if t < 0 or t > 1 or u < 0 or u > 1:
-        return None
-    return (x, y)
+    if t>=0 and t<=1 and u >= 0 and u <= 1:
+        x = x1 + t*(x2-x1)
+        y = y1 + t*(y2-y1)
+        # or
+        #x = x3+u*(x4-x3)
+        #y = y3+u*(y4-y3)
+        return (x, y)
+    return None

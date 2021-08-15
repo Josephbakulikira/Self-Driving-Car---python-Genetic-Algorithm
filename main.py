@@ -14,7 +14,7 @@ from UI.setup import *
 
 pygame.init()
 # pygame.display.set_caption(" Self Driving Car")
-screen = pygame.display.set_mode((Width, Height))
+screen = pygame.display.set_mode((Width, Height), vsync=True)
 clock = pygame.time.Clock()
 fps = 60
 
@@ -165,13 +165,21 @@ while run:
 
     car.update(dt)
     car.Draw(screen, debug)
+    car.checkSensorIntersection(TrackLines)
+
+
+    if len(car.intersections) > 0:
+        if debug == True:
+            for p in car.intersections:
+                pygame.draw.circle(screen, Cyan, p, 5)
+
     if len(TrackLines) > 0:
-        collide = car.CheckCollision(TrackLines)
-        if collide:
-            pygame.draw.circle(screen, Red, (Width//2, Height//2), 50)
+        car.crashed = car.CheckDeath(TrackLines)
+        if car.crashed == True:
+            pygame.draw.circle(screen, Red, car.center, 8)
+
     # Render UI
     if showPanel == True:
-
         # might need to change the way i render ui for optimisation
         panel.Render(screen)
         quitSave.Render(screen)

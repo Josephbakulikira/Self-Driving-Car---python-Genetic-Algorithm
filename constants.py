@@ -15,7 +15,7 @@ MAX_STEERING = 45
 MAX_VELOCITY = 15
 MAX_ACCELERATION = 5.0
 
-CAR_SIZE = (80, 40)
+CAR_SIZE = (60, 30)
 
 # when you load a data file ,
 # check if these 3 value are the same with the saved data
