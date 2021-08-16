@@ -9,7 +9,6 @@ from pygame.math import Vector2
 from car import Car
 from utils import TrackTriangles
 from constants import *
-from agent import *
 from UI.setup import *
 
 pygame.init()
@@ -59,10 +58,7 @@ TrackLines = loadData['LINES']
 # ---------
 
 car = Car(30, 15)
-# car1 = Agent(30, 15, 24)
-
 car.sprite = sprite
-# car1.sprite = sprite
 
 
 debug=False
@@ -161,7 +157,6 @@ while run:
 
     if debug:
         trackBottomBound.Draw(screen, False)
-        trackBottomBound.color = Cyan
         trackTopBound.Draw(screen, False)
 
     if editorMode:
@@ -169,9 +164,8 @@ while run:
 
     car.update(screen, dt, TrackLines, debug)
     car.Draw(screen, debug)
-    # car1.update(dt)
-    # car1.Draw(screen, debug)
-
+    
+    # car1.update(screen, dt, TrackLines, debug)
     if len(TrackLines) > 0:
         if car.crashed == True:
             pygame.draw.circle(screen, Red, car.center, 8)

@@ -14,7 +14,7 @@ class Car:
         self.max_acceleration = max_acceleration
         self.max_steering = max_steering
         self.max_velocity = MAX_VELOCITY
-        self.max_distance = 100
+        self.max_distance = MAX_SENSOR
         self.brake_deceleration = 10
         self.free_deceleration = 2
         self.t = 32
