@@ -9,6 +9,9 @@ def clamp(num, min_value, max_value):
 def Line(a, b):
     return {"a": a, "b": b}
 
+def Intersection(position, distance):
+    return {"position":position, "distance":distance}
+
 def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=None, wireframe=False, wireframeLine=False):
     n = N_POINTS/CORRELATION
     res = 1
@@ -27,9 +30,10 @@ def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=N
         if wireframe:
             pygame.draw.polygon(screen, Cyan, [t, b, b2], 1)
             pygame.draw.polygon(screen, Cyan, [t, t2, b2], 1)
+            
         if wireframeLine:
-            pygame.draw.line(screen, Red, t, t2, 3)
-            pygame.draw.line(screen, Yellow, b, b2, 3)
+            pygame.draw.line(screen, (175, 152, 255), t, t2, 3)
+            pygame.draw.line(screen, (175, 152, 255), b, b2, 3)
 
         if updateLines == True:
             if Line(t, t2) not in Lines:

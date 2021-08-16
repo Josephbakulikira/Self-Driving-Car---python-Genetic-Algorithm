@@ -9,7 +9,7 @@ from pygame.math import Vector2
 from car import Car
 from utils import TrackTriangles
 from constants import *
-
+from agent import *
 from UI.setup import *
 
 pygame.init()
@@ -56,11 +56,14 @@ trackTopBound = loadData['TOP_TRACK']
 trackBottomBound = loadData['BOTTOM_TRACK']
 TrackLines = loadData['LINES']
 
-
 # ---------
 
 car = Car(30, 15)
+# car1 = Agent(30, 15, 24)
+
 car.sprite = sprite
+# car1.sprite = sprite
+
 
 debug=False
 editorMode = False
@@ -77,6 +80,7 @@ MouseClicked = False
 ThemeIndex = 3
 
 showPanel = False
+counter = 0
 
 run = True
 while run:
@@ -157,24 +161,18 @@ while run:
 
     if debug:
         trackBottomBound.Draw(screen, False)
+        trackBottomBound.color = Cyan
         trackTopBound.Draw(screen, False)
 
     if editorMode:
         track.Draw(screen, MouseClicked, edit)
 
-
-    car.update(dt)
+    car.update(screen, dt, TrackLines, debug)
     car.Draw(screen, debug)
-    car.checkSensorIntersection(TrackLines)
-
-
-    if len(car.intersections) > 0:
-        if debug == True:
-            for p in car.intersections:
-                pygame.draw.circle(screen, Cyan, p, 5)
+    # car1.update(dt)
+    # car1.Draw(screen, debug)
 
     if len(TrackLines) > 0:
-        car.crashed = car.CheckDeath(TrackLines)
         if car.crashed == True:
             pygame.draw.circle(screen, Red, car.center, 8)
 
@@ -201,14 +199,16 @@ while run:
     if quitSave.state == True:
         saveChange = True
         run = False
-    pygame.display.flip()
-    clock.tick(fps)
 
     MouseClicked = False
     if editorMode:
         changed = True
     else:
         changed = False
+    counter += 1
+
+    pygame.display.flip()
+
 # save our edited track and the lines of the track
 if saveChange == True:
     data = {
