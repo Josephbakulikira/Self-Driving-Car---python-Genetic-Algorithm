@@ -54,8 +54,9 @@ class Car:
         if debug == True:
             if len(self.intersections) > 0:
                 for p in self.intersections:
-                    pygame.draw.circle(screen, (250, 150, 42), p["position"], 5)
-                    # print(p['distance'])
+                    if p["position"] != None:
+                        pygame.draw.circle(screen, (250, 150, 42), p["position"], 5)
+                        # print(p['distance'])
 
     def Forward(self, dt):
         if self.velocity.x < 0:
@@ -110,17 +111,19 @@ class Car:
 
     def checkSensorIntersection(self, raceTrackLines):
         self.intersections.clear()
-        for sensor in self.sensors:
+        self.intersections = [Intersection(None, MAX_SENSOR) for _ in range(5)]
+
+        for i in range(len(self.sensors)):
             for l in raceTrackLines:
                 intersection = LineLineIntersection(
                 self.center.x, self.center.y,
-                sensor.x, sensor.y,
+                self.sensors[i].x, self.sensors[i].y,
                 l['a'][0], l['a'][1],
                 l['b'][0], l['b'][1]
                 )
                 if intersection != None:
-                    self.intersections.append(Intersection(intersection, GetDistance(self.center, Vector2(intersection[0], intersection[1]) ) ) )
-
+                    self.intersections[i] = Intersection(intersection, GetDistance(self.center, Vector2(intersection[0], intersection[1]) ) )
+                
 
     def SetRectangle(self, screen ,w, h, debug):
         px = self.x + w/2
