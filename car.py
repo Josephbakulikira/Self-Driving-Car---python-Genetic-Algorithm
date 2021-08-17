@@ -2,7 +2,7 @@ import pygame
 from math import degrees, sin, radians, copysign, atan2, cos, sin
 from pygame.math import Vector2
 from constants import *
-from utils import clamp, GetPerpendicular, LineLineIntersection, GetDistance, Intersection
+from utils import *
 
 class Car:
     def __init__(self, x, y, angle=0.0, length=4, max_steering=MAX_STEERING, max_acceleration=MAX_ACCELERATION):
@@ -28,9 +28,10 @@ class Car:
         self.lines = []
         self.sensors = []
         self.crashed = False
-        self.intersections = []
+        self.intersections = [Intersection(None, translate(MAX_SENSOR, 0, MAX_SENSOR, 0, 1)) for _ in range(5)]
 
     def update(self,screen, dt, tracklines, debug=False):
+
         self.velocity += (self.acceleration * dt, 0)
         # max(-self.max_velocity, min(self.velocity.x, self.max_velocity))
         self.velocity.x = clamp(self.velocity.x, -self.max_velocity, self.max_velocity)
@@ -111,7 +112,7 @@ class Car:
 
     def checkSensorIntersection(self, raceTrackLines):
         self.intersections.clear()
-        self.intersections = [Intersection(None, MAX_SENSOR) for _ in range(5)]
+        self.intersections = [Intersection(None, translate(MAX_SENSOR, 0, MAX_SENSOR, 0, 1)) for _ in range(5)]
 
         for i in range(len(self.sensors)):
             for l in raceTrackLines:
@@ -122,8 +123,12 @@ class Car:
                 l['b'][0], l['b'][1]
                 )
                 if intersection != None:
-                    self.intersections[i] = Intersection(intersection, GetDistance(self.center, Vector2(intersection[0], intersection[1]) ) )
-                
+                    self.intersections[i] = Intersection(intersection,
+                        translate(
+                        GetDistance(self.center, Vector2(intersection[0], intersection[1]))
+                        , 0, MAX_SENSOR, 0, 1 )
+                        ) 
+
 
     def SetRectangle(self, screen ,w, h, debug):
         px = self.x + w/2
@@ -171,9 +176,9 @@ class Car:
 
     def Draw(self, screen, debug=False):
         rotated = pygame.transform.rotate(self.sprite, self.angle)
+        self.rectangle = rotated
         rect = rotated.get_rect()
         self.x, self.y = self.position * self.t - (rect.width / 2, rect.height / 2)
-        self.rectangle = rotated
         collide = rect.collidepoint(pygame.mouse.get_pos())
         # print(dir(rotated))
         screen.blit(rotated, (self.x, self.y))

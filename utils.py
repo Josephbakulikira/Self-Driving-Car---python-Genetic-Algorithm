@@ -9,6 +9,9 @@ def clamp(num, min_value, max_value):
 def Line(a, b):
     return {"a": a, "b": b}
 
+def translate(value, min1, max1, min2, max2):
+    return min2 + (max2-min2) * ((value-min1)/(max1-min1))
+
 def Intersection(position, distance):
     return {"position":position, "distance":distance}
 
@@ -30,7 +33,7 @@ def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=N
         if wireframe:
             pygame.draw.polygon(screen, Cyan, [t, b, b2], 1)
             pygame.draw.polygon(screen, Cyan, [t, t2, b2], 1)
-            
+
         if wireframeLine:
             pygame.draw.line(screen, (175, 152, 255), t, t2, 3)
             pygame.draw.line(screen, (175, 152, 255), b, b2, 3)
@@ -51,7 +54,11 @@ def Magnitude(a):
 
 def GetPerpendicular(A, B, length):
     _rise, _run = (B.y - A.y), (B.x - A.x)
-    slope = _rise/_run
+    slope = 0
+    if _run == 0:
+        slope = 0
+    else:
+        slope = _rise/_run
     dy = sqrt(length**2 / (slope**2+1))
     dx = -slope * dy
     C = Vector2( B.x + dx, B.y + dy )
