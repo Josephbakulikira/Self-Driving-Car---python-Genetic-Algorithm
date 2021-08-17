@@ -57,8 +57,9 @@ TrackLines = loadData['LINES']
 
 # ---------
 
-car = Car(30, 15)
+car = Car(4, 21)
 car.sprite = sprite
+car.angle = 90
 
 
 debug=False
@@ -73,7 +74,7 @@ changed = False
 
 saveChange = False
 MouseClicked = False
-ThemeIndex = 3
+ThemeIndex = 4
 
 showPanel = False
 counter = 0

@@ -162,24 +162,19 @@ def Fitness(genomes, config):
             output = nets[index].activate(
                 (car.velocity.x,
                 car.velocity.y,
-                car.intersections[0]["distance"],
-                car.intersections[1]["distance"],
-                car.intersections[2]["distance"],
-                car.intersections[3]["distance"],
-                car.intersections[4]["distance"],
+                abs(car.intersections[0]["distance"]),
+                abs(car.intersections[1]["distance"]),
+                abs(car.intersections[2]["distance"]),
+                abs(car.intersections[3]["distance"]),
+                abs(car.intersections[4]["distance"]),
                 )
             )
 
-            # if abs(output[0]) == 1:
-            #     car.Forward(dt)
-            # elif abs(output[1]) == 1:
-            #     car.Brake(dt)
 
-            if output[0] > 0.5:
+            if abs(output[0]) > 0.6:
                 car.Right(dt)
-            if output[1] > 0.5:
+            if abs(output[1]) > 0.6:
                 car.Left(dt)
-
 
 
         if changed == True:
