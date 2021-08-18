@@ -71,12 +71,12 @@ changed = False
 
 saveChange = False
 ThemeIndex = 3
-
+generation = 0
 showPanel = False
 
 def Fitness(genomes, config):
     global ThemeIndex, edit, debug, editorMode, wireframe, wireframeLine, updateLines
-    global changed, saveChange, showPanel
+    global changed, saveChange, showPanel, generation
     nets = []
     genes = []
     cars = []
@@ -101,7 +101,10 @@ def Fitness(genomes, config):
 
     run = True
     MouseClicked = False
-
+    generation += 1
+    GenerationText.text = "Generation : " + str(generation)
+    PopulationText.text = "Population size: " + str(len(cars))
+    survivors = len(cars)
     while run:
         screen.fill(Themes[ThemeIndex]["background"])
 
@@ -227,6 +230,7 @@ def Fitness(genomes, config):
                     cars.pop(index)
                     nets.pop(index)
                     genes.pop(index)
+                    survivors -= 1
         else:
             run = False
 
@@ -261,6 +265,10 @@ def Fitness(genomes, config):
 
         counter += 1
 
+        GenerationText.Render(screen)
+        PopulationText.Render(screen)
+        AgentAliveText.text = "Alive : " + str(survivors)
+        AgentAliveText.Render(screen)
 
         MouseClicked = False
         if editorMode:
@@ -304,6 +312,7 @@ def run(config_path):
     stats = neat.StatisticsReporter()
     popul.add_reporter(stats)
     winner = popul.run(Fitness,1000)
+
     # print("\n Best genome: \n{!s}".format(winner))
 if __name__ == "__main__":
     local_dir = os.path.dirname(__file__) # current directory
