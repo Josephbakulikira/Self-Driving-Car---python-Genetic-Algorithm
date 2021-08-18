@@ -18,6 +18,7 @@ def Intersection(position, distance):
 def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=None, wireframe=False, wireframeLine=False):
     n = N_POINTS/CORRELATION
     res = 1
+    lines = []
     if updateLines == True:
         Lines.clear()
 
@@ -33,6 +34,8 @@ def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=N
         if wireframe:
             pygame.draw.polygon(screen, Cyan, [t, b, b2], 1)
             pygame.draw.polygon(screen, Cyan, [t, t2, b2], 1)
+            pygame.draw.line(screen, Red, t, b)
+            lines.append([t, b])
 
         if wireframeLine:
             pygame.draw.line(screen, (175, 152, 255), t, t2, 3)
@@ -45,7 +48,7 @@ def TrackTriangles(screen, Top, Bottom, themeIndex=3, updateLines=False, Lines=N
                 Lines.append(Line(b, b2))
 
     updateLines=False
-
+    return lines
 def GetDistance(a, b):
     return sqrt( (b.x-a.x)*(b.x-a.x) + (b.y-a.y)*(b.y-a.y))
 

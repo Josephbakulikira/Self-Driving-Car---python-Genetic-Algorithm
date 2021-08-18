@@ -65,7 +65,7 @@ edit=False
 wireframe=False
 wireframeLine=False
 updateLines = False
-
+Lines = None
 # set changed=True if you want to edit a track or create a new one
 changed = False
 
@@ -86,9 +86,9 @@ def Fitness(genomes, config):
         nn = neat.nn.FeedForwardNetwork.create(genome, config)
         nets.append(nn)
 
-        car = Car(4, 21)
+        car = Car(15, 4)
         car.sprite = sprite
-        car.angle = 90
+        # car.angle = 90
         cars.append(car)
         genome.fitness = 0
         genes.append(genome)
@@ -130,6 +130,8 @@ def Fitness(genomes, config):
                 if event.key == pygame.K_r:
                     debug = not debug
                     wireframeLine= not wireframeLine
+                if event.key == pygame.K_f:
+                    wireframe = not wireframe
             if event.type == pygame.MOUSEBUTTONDOWN:
                 MouseClicked = True
 
@@ -157,11 +159,10 @@ def Fitness(genomes, config):
         for index, car in enumerate(cars):
 
             car.Forward(dt)
-            car.constrainAcceleration()
+            # car.constrainAcceleration()
             genes[index].fitness += 0.1
             output = nets[index].activate(
-                (car.velocity.x,
-                car.velocity.y,
+                (
                 abs(car.intersections[0]["distance"]),
                 abs(car.intersections[1]["distance"]),
                 abs(car.intersections[2]["distance"]),
@@ -169,13 +170,19 @@ def Fitness(genomes, config):
                 abs(car.intersections[4]["distance"]),
                 )
             )
+            # print(output)
+            i = output.index(max(output))
 
-
-            if abs(output[0]) > 0.6:
-                car.Right(dt)
-            if abs(output[1]) > 0.6:
+            if i == 0:
                 car.Left(dt)
+            else:
+                car.Right(dt)
+            # if abs(output[0]) > 0.6:
+            #     car.Right(dt)
+            # if abs(output[1]) > 0.6:
+            #     car.Left(dt)
 
+            car.constrainSteering()
 
         if changed == True:
             for i in range(N_POINTS ):
@@ -190,7 +197,7 @@ def Fitness(genomes, config):
                 trackBottomBound.points[i].y = p1[1] + TRACK_WIDTH * (g1[0]/glength)
 
         # draw track triangles and extract the lines out of the track
-        TrackTriangles(
+        Lines = TrackTriangles(
             screen ,
             Top=trackTopBound,
             Bottom=trackBottomBound,
@@ -211,7 +218,6 @@ def Fitness(genomes, config):
         if len(cars) > 0:
             for index, car in enumerate(cars):
 
-                car.constrainSteering()
                 car.update(screen, dt, TrackLines, debug)
                 car.Draw(screen, debug)
 
@@ -234,7 +240,9 @@ def Fitness(genomes, config):
             wireframeModeText.Render(screen)
             showLineText.Render(screen)
 
+
             editorMode = editorModeToggle.Render(screen, MouseClicked)
+
             edit = editToggle.Render(screen, MouseClicked)
             wireframe = wireframeToggle.Render(screen, MouseClicked)
             debug = ShowlineToggle .Render(screen, MouseClicked)
@@ -249,7 +257,7 @@ def Fitness(genomes, config):
             run = False
 
         for gene in genes:
-            gene.fitness += 0.5
+            gene.fitness += 2
 
         counter += 1
 
@@ -295,7 +303,7 @@ def run(config_path):
     popul.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     popul.add_reporter(stats)
-    winner = popul.run(Fitness,50)
+    winner = popul.run(Fitness,1000)
     # print("\n Best genome: \n{!s}".format(winner))
 if __name__ == "__main__":
     local_dir = os.path.dirname(__file__) # current directory

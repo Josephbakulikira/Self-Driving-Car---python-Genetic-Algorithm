@@ -63,12 +63,12 @@ class Car:
         if self.velocity.x < 0:
             self.acceleration = self.brake_deceleration
         else:
-            self.acceleration += 1 * dt
+            self.acceleration += 2 * dt
     def Backward(self, dt):
         if self.velocity.x > 0:
             self.acceleration = -self.brake_deceleration
         else:
-            self.acceleration -= 1 * dt
+            self.acceleration -= 2 * dt
     def Brake(self, dt):
         if abs(self.velocity.x) > dt * self.brake_deceleration:
             self.acceleration = -copysign(self.brake_deceleration, self.velocity.x)
@@ -127,7 +127,7 @@ class Car:
                         translate(
                         GetDistance(self.center, Vector2(intersection[0], intersection[1]))
                         , 0, MAX_SENSOR, 0, 1 )
-                        ) 
+                        )
 
 
     def SetRectangle(self, screen ,w, h, debug):
