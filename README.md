@@ -28,7 +28,13 @@ Not Finished Yet
 
 ---
 ### Bugs
-     The car control still need a little bit of work
+     -The car control still need a little bit of work.
+     
+     -The AI only decide if it will go right or left, to get a much better ai should decide by itself when to accelerate , when to brake and so on
+      if you have a time and find a solution you can make a pull request.
+---
+![Screenshot (41)](https://user-images.githubusercontent.com/48150537/129870366-2266d4bc-8d0d-4bf2-85aa-fd1de656b1b2.png)
+![Screenshot (40)](https://user-images.githubusercontent.com/48150537/129870374-83b75d29-653d-4921-b849-0b64013ecd78.png)
 ---
 ![Screenshot (23)](https://user-images.githubusercontent.com/48150537/128980799-61a1bbcf-256c-4d9f-809e-4e5dc0f0503e.png)
 ![Screenshot (21)](https://user-images.githubusercontent.com/48150537/128980922-f169e580-9038-46e2-9044-a2a186e24df3.png)
