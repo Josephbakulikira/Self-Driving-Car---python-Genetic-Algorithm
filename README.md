@@ -12,13 +12,12 @@ Not Finished Yet
 ---
 ### Controls
     - "R" to show boundary lines
+    - "F" to show wireframe mode
     - "Q" to change the Theme
     - "Esc" to quit without saving the tracks modification
     - "Enter (Return) or P " to the parameter panel
     - "WASD or Arrows keys" to control the car
  
-
-
 ---
 ### Bugs
      -The car control still need a little bit of work.
