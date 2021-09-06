@@ -56,6 +56,7 @@ class Car:
             if len(self.intersections) > 0:
                 for p in self.intersections:
                     if p["position"] != None:
+                        pygame.draw.line(screen, (150, 100, 255), self.center, p["position"], 2)
                         pygame.draw.circle(screen, (250, 150, 42), p["position"], 5)
                         # print(p['distance'])
 
@@ -107,14 +108,15 @@ class Car:
             self.sensors.append(Vector2(x,y))
         if debug==True:
             pygame.draw.circle(screen, (240, 150 ,23), self.center, 5)
-            for p in self.sensors:
-                pygame.draw.line(screen, (i, i+70, 255), self.center, p, 2)
+            # for p in self.sensors:
+            #     pygame.draw.line(screen, (i, i+70, 255), self.center, p, 2)
 
     def checkSensorIntersection(self, raceTrackLines):
         self.intersections.clear()
         self.intersections = [Intersection(None, translate(MAX_SENSOR, 0, MAX_SENSOR, 0, 1)) for _ in range(5)]
 
         for i in range(len(self.sensors)):
+            closest = Intersection(None, translate(MAX_SENSOR, 0, MAX_SENSOR, 0, 1))
             for l in raceTrackLines:
                 intersection = LineLineIntersection(
                 self.center.x, self.center.y,
@@ -123,11 +125,15 @@ class Car:
                 l['b'][0], l['b'][1]
                 )
                 if intersection != None:
-                    self.intersections[i] = Intersection(intersection,
+
+                    inters = Intersection(intersection,
                         translate(
                         GetDistance(self.center, Vector2(intersection[0], intersection[1]))
                         , 0, MAX_SENSOR, 0, 1 )
                         )
+                    if inters["distance"] < closest["distance"]:
+                        self.intersections[i] = inters
+                        closest = inters
 
 
     def SetRectangle(self, screen ,w, h, debug):

@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 fps = 60
 
 # load Assets
-track_filename = "./map/new_track3"
+track_filename = "./map/track2"
 current_directory = os.path.dirname(os.path.abspath(__file__))
 carImage_path = os.path.join(current_directory, "./Assets/car2.png")
 car_sprite = pygame.image.load(carImage_path)
@@ -48,7 +48,7 @@ sprite = pygame.transform.scale(car_sprite, CAR_SIZE)
 # check if the constants is the
 # same as the saved data
 
-filename = "./map/track4"
+filename = "./map/track2"
 loadData = pickle.load(open(filename, 'rb'))
 track = loadData['TRACK']
 trackTopBound = loadData['TOP_TRACK']

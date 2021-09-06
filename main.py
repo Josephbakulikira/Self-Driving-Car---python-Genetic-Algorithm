@@ -86,16 +86,12 @@ def Fitness(genomes, config):
         nn = neat.nn.FeedForwardNetwork.create(genome, config)
         nets.append(nn)
 
-        car = Car(15, 4)
+        car = Car(4, 20)
         car.sprite = sprite
-        # car.angle = 90
+        car.angle = 90
         cars.append(car)
         genome.fitness = 0
         genes.append(genome)
-
-    # car = Car(30, 4)
-    # car.sprite = sprite
-
 
     counter = 1
 
@@ -162,7 +158,6 @@ def Fitness(genomes, config):
         for index, car in enumerate(cars):
 
             car.Forward(dt)
-            # car.constrainAcceleration()
             genes[index].fitness += 0.1
             output = nets[index].activate(
                 (
@@ -173,17 +168,18 @@ def Fitness(genomes, config):
                 abs(car.intersections[4]["distance"]),
                 )
             )
-            # print(output)
-            i = output.index(max(output))
 
+            i = output.index(max(output))
             if i == 0:
                 car.Left(dt)
             else:
                 car.Right(dt)
-            # if abs(output[0]) > 0.6:
+
+            # if output[0] > 0.6:
             #     car.Right(dt)
-            # if abs(output[1]) > 0.6:
+            # elif output[1] > 0.6:
             #     car.Left(dt)
+
 
             car.constrainSteering()
 

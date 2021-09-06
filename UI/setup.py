@@ -7,10 +7,10 @@ quitSave.w = 200
 quitSave.position = (Width-280, 450)
 quitSave.border = 0
 
-GenerationText = TextUI("Generation: ", (Width//2 - 100, Height//2 - 120), (255, 255, 255), "topleft")
-PopulationText = TextUI("population size: ", (Width//2 - 100, Height//2 - 80), (255, 255, 255), "topleft")
-AgentAliveText = TextUI("agent Alive: ", (Width//2 - 100, Height//2 - 40), (255, 255, 255), "topleft")
-HighestFitnessText = TextUI("Highest Fitness Score: ", (Width//2 - 100, Height//2), (255, 255, 255), "topleft")
+GenerationText = TextUI("Generation: ", (Width//2 - 150, Height//2 - 120), (255, 255, 255), "topleft")
+PopulationText = TextUI("population size: ", (Width//2 - 150, Height//2 - 80), (255, 255, 255), "topleft")
+AgentAliveText = TextUI("agent Alive: ", (Width//2 - 150, Height//2 - 40), (255, 255, 255), "topleft")
+HighestFitnessText = TextUI("Highest Fitness Score: ", (Width//2 - 150, Height//2), (255, 255, 255), "topleft")
 
 editorModeText = TextUI(  "EditorMode :",      (Width-350, 100), (255, 255, 255), "topleft")
 editText = TextUI("Start Editing :",           (Width-350, 140), (255, 255, 255), "topleft")

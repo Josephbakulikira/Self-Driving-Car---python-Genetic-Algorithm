@@ -11,7 +11,7 @@ Yellow = (255, 255, 0)
 Gray = (100, 100, 100)
 Cyan = (0, 255, 255)
 
-MAX_SENSOR = 100
+MAX_SENSOR = Width
 
 MAX_STEERING = 100
 MAX_VELOCITY = 2
