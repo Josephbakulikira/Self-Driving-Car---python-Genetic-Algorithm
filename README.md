@@ -20,8 +20,10 @@ Not Finished Yet
  
 ---
 ### Bugs
+For a much better ai of self driving car , you should try to get maybe four output for brake, accelerate, left and right 
+instead of just left and right as i did. Although this might take a lot of time to train but it definetly the better way to do it.
+
      -The car control still need a little bit of work.
-     
      -The AI only decide if it will go right or left, to get a much better ai should decide by itself when to accelerate , when to brake and so on
       if you have a time and find a solution you can make a pull request.
 ---
