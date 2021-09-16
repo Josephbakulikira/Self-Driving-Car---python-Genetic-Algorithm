@@ -1,14 +1,13 @@
 # Self Driving Car python
 ---
-Not Finished Yet
----
 ## YOUTUBE CHANNEL
- Subscribe for support : http://www.youtube.com/channel/UCjPk9YDheKst1FlAf_KSpyA?sub_confirmation=1
+ [Subscribe for support](http://www.youtube.com/channel/UCjPk9YDheKst1FlAf_KSpyA?sub_confirmation=1)
 
 ---
 ### Requirements
-      pygame : pip install pygame
-      pickle : pip install pickle-mixin
+   - pygame : pip install pygame
+   - pickle : pip install pickle-mixin
+   - neat   : pip install neat-python
 ---
 ### Controls
     - "R" to show boundary lines
@@ -23,9 +22,9 @@ Not Finished Yet
 For a much better ai of self driving car , you should try to get maybe four output for brake, accelerate, left and right 
 instead of just left and right as i did. Although this might take a lot of time to train but it definetly the better way to do it.
 
-     -The car control still need a little bit of work.
-     -The AI only decide if it will go right or left, to get a much better ai should decide by itself when to accelerate , when to brake and so on
-      if you have a time and find a solution you can make a pull request.
+   - The car control still need a little bit of work.
+   - The AI only decide if it will go right or left, to get a much better ai should decide by itself when to accelerate , when to brake and so on
+       if you have a time and find a solution you can make a pull request.
 ---
 ![Screenshot (41)](https://user-images.githubusercontent.com/48150537/129870366-2266d4bc-8d0d-4bf2-85aa-fd1de656b1b2.png)
 ![Screenshot (40)](https://user-images.githubusercontent.com/48150537/129870374-83b75d29-653d-4921-b849-0b64013ecd78.png)
