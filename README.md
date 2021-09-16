@@ -10,15 +10,15 @@
    - **neat**   : pip install neat-python
 ---
 ### Controls
-    - "R" to show boundary lines
-    - "F" to show wireframe mode
-    - "Q" to change the Theme
-    - "Esc" to quit without saving the tracks modification
-    - "Enter (Return) or P " to the parameter panel
-    - "WASD or Arrows keys" to control the car
+    - "R"                   : to show boundary lines
+    - "F"                   : to show wireframe mode
+    - "Q"                   : to change the Theme
+    - "Esc"                 : to quit without saving the tracks modification
+    - "Enter(Return) or P"  : to the parameter panel
+    - "WASD or Arrows keys" : to control the car
  
 ---
-### Bugs
+### Bugs (Unsolved Issues)
 For a much better ai of self driving car , you should try to get maybe four output for brake, accelerate, left and right 
 instead of just left and right as i did. Although this might take a lot of time to train but it definetly the better way to do it.
 
@@ -43,4 +43,4 @@ instead of just left and right as i did. Although this might take a lot of time 
 ![Screenshot (22)](https://user-images.githubusercontent.com/48150537/128980925-1dc6ddb8-75a8-4e1e-b467-245d5270a145.png)
 ![Screenshot (24)](https://user-images.githubusercontent.com/48150537/128980800-4fc8ff33-d194-461f-9463-0689408447d9.png)
 ---
-#### sorry for the 🍝 code , enjoy✌️
+> sorry for the 🍝 code , enjoy✌️
