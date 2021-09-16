@@ -5,9 +5,9 @@
 
 ---
 ### Requirements
-   - pygame : pip install pygame
-   - pickle : pip install pickle-mixin
-   - neat   : pip install neat-python
+   - **pygame** : pip install pygame
+   - **pickle** : pip install pickle-mixin
+   - **neat**   : pip install neat-python
 ---
 ### Controls
     - "R" to show boundary lines
