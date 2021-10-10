@@ -33,11 +33,11 @@ sprite = pygame.transform.scale(car_sprite, CAR_SIZE)
 # trackBottomBound = Spline()
 # trackTopBound.pointRadius = 1
 # trackBottomBound.pointRadius = 1
-#
+
 # track.CreatePoints(N_POINTS, False)
 # trackBottomBound.CreatePoints(N_POINTS, False)
 # trackTopBound.CreatePoints(N_POINTS, False)
-#
+
 # track.resolution = SPLINE_RESOLUTION
 # trackBottomBound.resolution = SPLINE_RESOLUTION
 # trackTopBound.resolution = SPLINE_RESOLUTION
@@ -77,6 +77,7 @@ showPanel = False
 def Fitness(genomes, config):
     global ThemeIndex, edit, debug, editorMode, wireframe, wireframeLine, updateLines
     global changed, saveChange, showPanel, generation
+    global TRACK_WIDTH 
     nets = []
     genes = []
     cars = []

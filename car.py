@@ -135,7 +135,6 @@ class Car:
                         self.intersections[i] = inters
                         closest = inters
 
-
     def SetRectangle(self, screen ,w, h, debug):
         px = self.x + w/2
         py = self.y + h/2

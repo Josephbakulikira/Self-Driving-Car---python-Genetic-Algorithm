@@ -48,7 +48,7 @@ sprite = pygame.transform.scale(car_sprite, CAR_SIZE)
 # check if the constants is the
 # same as the saved data
 
-filename = "./map/track2"
+filename = "./map/track4"
 loadData = pickle.load(open(filename, 'rb'))
 track = loadData['TRACK']
 trackTopBound = loadData['TOP_TRACK']
